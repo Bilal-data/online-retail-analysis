@@ -23,10 +23,13 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - Monthly net revenue peaks in November 2011 (1,461,756). September to November are far above the earlier months (about 0.5 to 0.75 million).
 - The data ends on 9 Dec 2011 at 12:50, so December 2011 is incomplete. Comparing it with a full month is misleading.
 - Same-period check (1 to 9 December): gross revenue looks 45.6% higher in 2011 (438,853 against 638,793). But one invoice (581483, 80,995 units of a single item, 168,470) was cancelled 12 minutes later (C581484). On a net basis the growth is 14.9% (377,488 against 433,668). Invoice counts were almost the same (834 and 819).
+- Invoice size: the mean invoice is 845.7 outside the UK against 500.9 in the UK (medians 424.1 and 300.5). A permutation test (10,000 shuffles of invoices) gives p < 0.0001 for both differences, so it is very unlikely to be chance. I do not know the reason (wholesale buyers is my guess).
+- Cancellations: 3,836 cancellation invoices worth 896,812, which is 8.4% of gross revenue.
+- Customers: 4,338 customers have an ID. The top 10 bring 17.3% of their revenue and the top 20% bring 74.6%.
 
 ## Limitations
 
-- Descriptive analysis only. I have not run a statistical test yet.
+- Mostly descriptive analysis, with one statistical test (UK against other countries). Invoices of the same customer are not independent, and I could not shuffle by customer because 25% of rows have no CustomerID.
 - The 14.9% comes from 9 days only, so it is a hint, not a conclusion.
 - Customer-level analysis would cover only about 75% of rows (the ones with a CustomerID).
 - I matched only one cancellation to its original invoice. Other cancellations may refer to earlier sales that I did not check.
@@ -59,10 +62,13 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - الإيراد الصافي الشهري بيوصل لقمته في نوفمبر 2011 (1,461,756). من سبتمبر لنوفمبر أعلى بكتير من الشهور اللي قبلهم (حوالي 0.5 لـ 0.75 مليون).
 - الداتا بتخلص يوم 9 ديسمبر 2011 الساعة 12:50، فشهر ديسمبر 2011 ناقص. مقارنته بشهر كامل بتضلل.
 - مقارنة نفس الفترة (من 1 لـ 9 ديسمبر): الإيراد الإجمالي شكله أعلى 45.6% في 2011 (438,853 مقابل 638,793). لكن فاتورة واحدة (581483، 80,995 قطعة من صنف واحد، 168,470) اتلغت بعد 12 دقيقة (C581484). بالصافي النمو 14.9% (377,488 مقابل 433,668). وعدد الفواتير كان تقريبًا نفسه (834 و819).
+- حجم الفاتورة: متوسط الفاتورة 845.7 برّه بريطانيا مقابل 500.9 في بريطانيا (الوسيط 424.1 و300.5). اختبار permutation (10,000 خلطة للفواتير) طلع p < 0.0001 للفرقين، يعني مستبعد جدًا يكون صدفة. السبب مش معروف (تجار جملة تخمين مني).
+- الإلغاءات: 3,836 فاتورة إلغاء قيمتها 896,812، يعني 8.4% من الإيراد الإجمالي.
+- العملاء: 4,338 عميل عندهم رقم. أكبر 10 بيجيبوا 17.3% من إيرادهم، وأكبر 20% بيجيبوا 74.6%.
 
 ### الحدود
 
-- تحليل وصفي بس. لسه ما عملتش اختبار إحصائي.
+- تحليل وصفي في الأساس، مع اختبار إحصائي واحد (بريطانيا مقابل باقي الدول). فواتير نفس العميل مش مستقلة، وما قدرتش أخلط على مستوى العميل لأن 25% من السطور من غير CustomerID.
 - نسبة الـ 14.9% جاية من 9 أيام بس، فهي مؤشر مش استنتاج.
 - أي تحليل على مستوى العميل هيغطي حوالي 75% من السطور بس (اللي فيها CustomerID).
 - ربطت إلغاء واحد بس بفاتورته الأصلية. إلغاءات تانية ممكن تكون لمبيعات أقدم ما فحصتهاش.
