@@ -26,10 +26,12 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - Invoice size: the mean invoice is 845.7 outside the UK against 500.9 in the UK (medians 424.1 and 300.5). A permutation test (10,000 shuffles of invoices) gives p < 0.0001 for both differences, so it is very unlikely to be chance. I do not know the reason (wholesale buyers is my guess).
 - Cancellations: 3,836 cancellation invoices worth 896,812, which is 8.4% of gross revenue.
 - Customers: 4,338 customers have an ID. The top 10 bring 17.3% of their revenue and the top 20% bring 74.6%.
+- Customer-level test: I repeated the test by shuffling customers instead of invoices. The mean difference is 268.2 (p = 0.0105) and the median difference is 143.1 (p < 0.0001). So the invoice-level test overstated the evidence for the mean, and the median result holds.
+- Repeat purchase: 65.6% of known customers bought more than once (median 2 invoices, max 209), and they bring 93.1% of the revenue of known customers (gross view). Part of this is expected, since customers with more invoices add more revenue, and the data covers one year only, so a one-time customer may simply have started late.
 
 ## Limitations
 
-- Mostly descriptive analysis, with one statistical test (UK against other countries). Invoices of the same customer are not independent, and I could not shuffle by customer because 25% of rows have no CustomerID.
+- Mostly descriptive analysis, with two statistical tests (UK against other countries, by invoice and by customer). The customer-level test covers only the rows with a CustomerID (about 75%).
 - The 14.9% comes from 9 days only, so it is a hint, not a conclusion.
 - Customer-level analysis would cover only about 75% of rows (the ones with a CustomerID).
 - I matched only one cancellation to its original invoice. Other cancellations may refer to earlier sales that I did not check.
@@ -64,11 +66,13 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - مقارنة نفس الفترة (من 1 لـ 9 ديسمبر): الإيراد الإجمالي شكله أعلى 45.6% في 2011 (438,853 مقابل 638,793). لكن فاتورة واحدة (581483، 80,995 قطعة من صنف واحد، 168,470) اتلغت بعد 12 دقيقة (C581484). بالصافي النمو 14.9% (377,488 مقابل 433,668). وعدد الفواتير كان تقريبًا نفسه (834 و819).
 - حجم الفاتورة: متوسط الفاتورة 845.7 برّه بريطانيا مقابل 500.9 في بريطانيا (الوسيط 424.1 و300.5). اختبار permutation (10,000 خلطة للفواتير) طلع p < 0.0001 للفرقين، يعني مستبعد جدًا يكون صدفة. السبب مش معروف (تجار جملة تخمين مني).
 - الإلغاءات: 3,836 فاتورة إلغاء قيمتها 896,812، يعني 8.4% من الإيراد الإجمالي.
-- العملاء: 4,338 عميل عندهم رقم. أكبر 10 بيجيبوا 17.3% من إيرادهم، وأكبر 20% بيجيبوا 74.6%.
+- العملاء: 4,338 عميل عندهم رقم. أكبر 10 يجيبوا 17.3% من إيرادهم، وأكبر 20% يجيبوا 74.6%.
+- اختبار على مستوى العميل: كررت الاختبار بخلط العملاء بدل الفواتير. فرق المتوسط 268.2 وp = 0.0105، وفرق الوسيط 143.1 وp < 0.0001. يعني اختبار الفواتير بالغ في قوة الدليل على المتوسط، ونتيجة الوسيط فضلت قوية.
+- تكرار الشراء: 65.6% من العملاء المعروفين اشتروا أكتر من مرة (الوسيط فاتورتين، وأكتر عميل 209)، وهم بيجيبوا 93.1% من إيراد العملاء المعروفين (الإجمالي). جزء من الرقم ده متوقع لأن اللي عنده فواتير أكتر بيجمع إيراد أكتر، والداتا سنة واحدة بس فاللي ظهر "مرة واحدة" ممكن يكون بدأ متأخر.
 
 ### الحدود
 
-- تحليل وصفي في الأساس، مع اختبار إحصائي واحد (بريطانيا مقابل باقي الدول). فواتير نفس العميل مش مستقلة، وما قدرتش أخلط على مستوى العميل لأن 25% من السطور من غير CustomerID.
+- تحليل وصفي في الأساس، مع اختبارين إحصائيين (بريطانيا مقابل باقي الدول: بالفواتير وبالعملاء). اختبار العملاء بيغطي بس السطور اللي فيها CustomerID (حوالي 75%).
 - نسبة الـ 14.9% جاية من 9 أيام بس، فهي مؤشر مش استنتاج.
 - أي تحليل على مستوى العميل هيغطي حوالي 75% من السطور بس (اللي فيها CustomerID).
 - ربطت إلغاء واحد بس بفاتورته الأصلية. إلغاءات تانية ممكن تكون لمبيعات أقدم ما فحصتهاش.
