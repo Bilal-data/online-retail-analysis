@@ -28,13 +28,16 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - Customers: 4,338 customers have an ID. The top 10 bring 17.3% of their revenue and the top 20% bring 74.6%.
 - Customer-level test: I repeated the test by shuffling customers instead of invoices. The mean difference is 268.2 (p = 0.0105) and the median difference is 143.1 (p < 0.0001). So the invoice-level test overstated the evidence for the mean, and the median result holds.
 - Repeat purchase: 65.6% of known customers bought more than once (median 2 invoices, max 209), and they bring 93.1% of the revenue of known customers (gross view). Part of this is expected, since customers with more invoices add more revenue, and the data covers one year only, so a one-time customer may simply have started late.
+- Cancellation matching: 89.4% of cancellation lines with a CustomerID matched a purchase by the same customer and stock code (a loose check, not proof of timing or quantity). About a quarter of the unmatched lines are non-product codes (Manual, Discount, Postage, CRUK Commission), which are 19.2% of total cancellation value. Excluding those, product cancellations are 6.9% of product sales (vs. 8.4% in the simple view).
+- Recency/frequency segments (known customers): 51.7% are repeat and active customers, bringing 85.5% of revenue. The rest split into customers lost early (847), new and active (646), and repeat but no longer active (602).
+- Monthly net revenue rises from January to a sharp peak in November 2011, then drops in December (incomplete month). See the chart in the notebook. One year of data, so this is not proven to be a yearly pattern.
 
 ## Limitations
 
 - Mostly descriptive analysis, with two statistical tests (UK against other countries, by invoice and by customer). The customer-level test covers only the rows with a CustomerID (about 75%).
 - The 14.9% comes from 9 days only, so it is a hint, not a conclusion.
 - Customer-level analysis would cover only about 75% of rows (the ones with a CustomerID).
-- I matched only one cancellation to its original invoice. Other cancellations may refer to earlier sales that I did not check.
+- Cancellation matching is a loose check (same customer and stock code appear somewhere in sales), not matching by date or amount, so it does not prove timing or full quantity.  
 - The net view still includes non-product lines such as discounts, because I only filtered on price.
 - No cost or profit column, so this is revenue only. The data does not state the currency.
 
@@ -69,12 +72,15 @@ Analysis of the transactions of a UK-based online retailer (1 Dec 2010 to 9 Dec 
 - العملاء: 4,338 عميل عندهم رقم. أكبر 10 يجيبوا 17.3% من إيرادهم، وأكبر 20% يجيبوا 74.6%.
 - اختبار على مستوى العميل: كررت الاختبار بخلط العملاء بدل الفواتير. فرق المتوسط 268.2 وp = 0.0105، وفرق الوسيط 143.1 وp < 0.0001. يعني اختبار الفواتير بالغ في قوة الدليل على المتوسط، ونتيجة الوسيط فضلت قوية.
 - تكرار الشراء: 65.6% من العملاء المعروفين اشتروا أكتر من مرة (الوسيط فاتورتين، وأكتر عميل 209)، وهم بيجيبوا 93.1% من إيراد العملاء المعروفين (الإجمالي). جزء من الرقم ده متوقع لأن اللي عنده فواتير أكتر بيجمع إيراد أكتر، والداتا سنة واحدة بس فاللي ظهر "مرة واحدة" ممكن يكون بدأ متأخر.
+- ربط الإلغاءات: 89.4% من سطور الإلغاء اللي فيها CustomerID لاقت شراء لنفس العميل ونفس الصنف (فحص تقريبي، مش دليل على التوقيت أو الكمية). حوالي ربع اللي ملهاش شراء هي أكواد مش منتجات (يدوي، خصم، شحن، عمولة)، وبتمثل 19.2% من قيمة الإلغاءات. بعد استبعادهم، إلغاءات المنتجات 6.9% من مبيعات المنتجات (بدل 8.4% في العرض البسيط).
+- شرائح العملاء (R/F): 51.7% من العملاء المعروفين متكررين ونشطين، وبيجيبوا 85.5% من الإيراد. الباقي: فقدناهم بدري (847)، جداد ونشطين (646)، متكررين بس مش نشطين (602).
+- الإيراد الشهري الصافي بيزيد من يناير لقمة حادة في نوفمبر 2011، وبعدين بينزل في ديسمبر (شهر ناقص). الرسم البياني موجود في النوتبوك. سنة واحدة بس من الداتا، فده مش مؤكد إنه نمط بيتكرر كل سنة.
 
 ### الحدود
 
 - تحليل وصفي في الأساس، مع اختبارين إحصائيين (بريطانيا مقابل باقي الدول: بالفواتير وبالعملاء). اختبار العملاء بيغطي بس السطور اللي فيها CustomerID (حوالي 75%).
 - نسبة الـ 14.9% جاية من 9 أيام بس، فهي مؤشر مش استنتاج.
 - أي تحليل على مستوى العميل هيغطي حوالي 75% من السطور بس (اللي فيها CustomerID).
-- ربطت إلغاء واحد بس بفاتورته الأصلية. إلغاءات تانية ممكن تكون لمبيعات أقدم ما فحصتهاش.
+- ربط الإلغاءات فحص تقريبي (نفس العميل ونفس الصنف موجودين في المبيعات)، مش مطابقة بالتاريخ أو المبلغ، فمش بيثبت التوقيت ولا الكمية كاملة.  
 - العرض الصافي لسه فيه سطور مش منتجات زي الخصومات، لأني فلترت بالسعر بس.
 - مفيش عمود تكلفة أو ربح، فده إيراد بس. والداتا ما بتقولش العملة إيه.
